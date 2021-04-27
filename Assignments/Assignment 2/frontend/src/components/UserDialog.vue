@@ -55,9 +55,7 @@ export default {
       }
     },
     deleteUser() {
-      api.users.deleteById(this.user.id).then((response) => {
-        if (response) this.$emit("refresh");
-      });
+      api.users.deleteById(this.user.id).then(() => this.$emit("refresh"));
     },
   },
   computed: {

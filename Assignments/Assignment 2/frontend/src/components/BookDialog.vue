@@ -50,7 +50,7 @@ export default {
           .then(() => this.$emit("refresh"));
       } else {
         api.items
-          .edit({
+          .edit(this.item.id, {
             id: this.item.id,
             title: this.item.title,
             author: this.item.author,

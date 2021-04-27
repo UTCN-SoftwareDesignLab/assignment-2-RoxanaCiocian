@@ -39,9 +39,6 @@
                     <v-btn primary large block @click="attemptLogin"
                       >Login</v-btn
                     >
-                    <v-btn plain @click="toggleMode">
-                      No account? Click to register!
-                    </v-btn>
                   </v-layout>
 
                   <v-layout v-else row justify-center>
@@ -97,9 +94,7 @@ export default {
     async attemptRegister() {
       await this.$store.dispatch("auth/register", this.login);
     },
-    toggleMode() {
-      this.mode = this.mode === "login" ? "register" : "login";
-    },
+
     logout() {
       this.$store.dispatch("auth/logout");
     },

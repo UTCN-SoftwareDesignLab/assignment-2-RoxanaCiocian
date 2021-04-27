@@ -28,12 +28,6 @@ public class BookController {
         return bookService.findAll();
     }
 
-
-    @GetMapping(BOOKSTORE)
-    public List<BookDTO> search(@PathVariable String book) {
-        return bookService.search(book);
-    }
-
     @PostMapping
     public BookDTO createBook(@RequestBody BookDTO bookDTO) {
         return bookService.create(bookDTO);
@@ -54,16 +48,6 @@ public class BookController {
         bookService.deleteById(id);
     }
 
-//    @PatchMapping(ENTITY)
-//    public ResponseEntity<?> sellBook(@PathVariable Long id) {
-//        if (bookService.sell(id)) {
-//            return ResponseEntity.ok(new MessageResponse("Successfully sold book"));
-//        } else {
-//            return ResponseEntity
-//                    .badRequest()
-//                    .body(new MessageResponse("Book not in stock"));
-//        }
-//    }
 
     @GetMapping(EXPORT_REPORT)
     public String export(@PathVariable ReportType type){

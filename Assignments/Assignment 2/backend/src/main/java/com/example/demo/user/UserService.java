@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.Email;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +44,7 @@ public class UserService {
                 .collect(toList());
     }
 
+    @Email
     public UserListDTO create(UserListDTO userListDTO){
         User user = userMapper.userFromListDTO(userListDTO);
         user.setPassword(encoder.encode(userListDTO.getPassword()));
@@ -69,10 +70,19 @@ public class UserService {
         return userMapper.userListDtoFromUser(user);
 
     }
-
+     @Email
     public UserListDTO update(Long id, UserListDTO userListDTO){
         User user = findById(id);
-        user.setUsername(userListDTO.getUsername());
+
+        if(!userListDTO.getUsername().equals("")){
+            user.setUsername(userListDTO.getUsername());
+
+        }
+
+        if(!userListDTO.getEmail().equals("")){
+            user.setEmail(userListDTO.getEmail());
+
+        }
 
         if(!userListDTO.getPassword().equals(""))
         {

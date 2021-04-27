@@ -17,13 +17,6 @@ export default {
     });
   },
 
-  search() {
-    return HTTP.get(BASE_URL + "/bookstore", {
-      headers: authHeader(),
-    }).then((response) => {
-      return response.data;
-    });
-  },
   create(book) {
     return HTTP.post(BASE_URL + "/bookstore/books", book, {
       headers: authHeader(),
@@ -31,8 +24,8 @@ export default {
       return response.data;
     });
   },
-  edit(book) {
-    return HTTP.put(BASE_URL + "/bookstore/books/" + book.id, book, {
+  edit(id, book) {
+    return HTTP.put(BASE_URL + "/bookstore/books/" + id, book, {
       headers: authHeader(),
     }).then((response) => {
       return response.data;
@@ -47,20 +40,6 @@ export default {
   },
   deleteAll() {
     return HTTP.delete(BASE_URL + "/bookstore/books", {
-      headers: authHeader(),
-    }).then((response) => {
-      return response.data;
-    });
-  },
-  sell(book) {
-    return HTTP.post(BASE_URL + "/bookstore/books/sell " + book.id, {
-      headers: authHeader(),
-    }).then((response) => {
-      return response.data;
-    });
-  },
-  search1() {
-    return HTTP.get(BASE_URL + "/bookstore/books", {
       headers: authHeader(),
     }).then((response) => {
       return response.data;

@@ -37,20 +37,27 @@ public class BookService {
 
     public BookDTO update(Long id, BookDTO book) {
         Book actBook = findById(id);
-        actBook.setTitle(book.getTitle());
-        actBook.setAuthor(book.getAuthor());
-        actBook.setGenre(book.getGenre());
-        actBook.setPrice(book.getPrice());
-        actBook.setQuantity(book.getQuantity());
+
+        if(!book.getTitle().equals("")) {
+            actBook.setTitle(book.getTitle());
+        }
+        if(!book.getAuthor().equals("")) {
+            actBook.setAuthor(book.getAuthor());
+        }
+        if(!book.getGenre().equals("")) {
+            actBook.setGenre(book.getGenre());
+        }
+        if(book.getPrice() != null) {
+            actBook.setPrice(book.getPrice());
+        }
+        if(book.getQuantity() != null) {
+            actBook.setQuantity(book.getQuantity());
+        }
         return bookMapper.toDto(
                 bookRepository.save(actBook)
         );
     }
 
-
-    public BookDTO get(Long id) {
-        return bookMapper.toDto(findById(id));
-    }
 
     public void deleteById(Long id) {
         bookRepository.deleteById(id);
@@ -67,36 +74,21 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-//    public BookDTO sell(Long id, int nr){
-//        Book actBook = findById(id);
-//        actBook.setQuantity(actBook.getQuantity() - nr);
-//        return bookMapper.toDto(
-//                bookRepository.save(actBook)
-//        );
-//    }
-
-//    public boolean sell(Long id) {
-//        Book actBook = findById(id);
-//        if (actBook.getQuantity() <= 0)
-//            return false;
-//        else actBook.setQuantity(actBook.getQuantity() - 1);
-//        bookRepository.save(actBook);
-//        return true;
-//    }
-
-    public boolean sell (Long id, int quantity)
+    public BookDTO sell (Long id, Integer quantity)
     {
         Book actBook = findById(id);
         if(actBook.getQuantity() - quantity >= 0) {
             actBook.setQuantity(actBook.getQuantity() - quantity);
             bookRepository.save(actBook);
-            return true;
         }
-        else return false;
+        return bookMapper.toDto(
+                bookRepository.save(actBook)
+        );
     }
 
     public List<BookDTO> booksOutOfStock(){
-        List<BookDTO> booksOutOfStock = bookRepository.findAll().stream().filter(book -> book.getQuantity() == 0)
+        List<BookDTO> booksOutOfStock = bookRepository.findAll().stream()
+                .filter(book -> book.getQuantity() == 0)
                 .map(bookMapper::toDto)
                 .collect(Collectors.toList());
 

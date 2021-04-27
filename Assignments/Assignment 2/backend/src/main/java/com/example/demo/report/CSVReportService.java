@@ -5,10 +5,7 @@ import com.example.demo.book.model.dto.BookDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.List;
 
 import static com.example.demo.report.ReportType.CSV;
@@ -24,37 +21,35 @@ public class CSVReportService implements ReportService {
 
         List<BookDTO> booksOutOfStock = bookService.booksOutOfStock();
 
-        File csv = new File("OutOfStockBooks_Report.csv");
+        StringBuilder sb = new StringBuilder();
+        sb.append(columns);
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(columns);
-
-        try{
-            PrintWriter writer = new PrintWriter(new FileOutputStream(new File("OutOfStockBooks_Report.csv"), false));
+        try (PrintWriter writer = new PrintWriter(new File("OutOfStockBooks_Report.csv"))) {
 
             for(BookDTO bookDTO : booksOutOfStock)
             {
-                stringBuilder.append(bookDTO.getId());
-                stringBuilder.append(",");
-                stringBuilder.append(bookDTO.getTitle());
-                stringBuilder.append(",");
-                stringBuilder.append(bookDTO.getAuthor());
-                stringBuilder.append(",");
-                stringBuilder.append(bookDTO.getGenre());
-                stringBuilder.append(",");
-                stringBuilder.append(bookDTO.getPrice());
-                stringBuilder.append("\n");
+                sb.append(bookDTO.getId());
+                sb.append(",");
+                sb.append(bookDTO.getTitle());
+                sb.append(",");
+                sb.append(bookDTO.getAuthor());
+                sb.append(",");
+                sb.append(bookDTO.getGenre());
+                sb.append(",");
+                sb.append(bookDTO.getPrice());
+                sb.append("\n");
             }
 
-            writer.write(stringBuilder.toString());
-            writer.close();
+            writer.write(sb.toString());
 
-        } catch (IOException e) {
+            System.out.println("done!");
+
+        } catch ( FileNotFoundException e) {
             e.printStackTrace();
-            return "Failed CSV Report";
+              return "Failed CSV Report";
         }
-
         return "OutOfStockBooks_Report.csv";
+
     }
 
 

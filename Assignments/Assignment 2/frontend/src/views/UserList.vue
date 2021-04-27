@@ -3,8 +3,6 @@
     <v-card-title>
       Users - Admin
       <v-spacer></v-spacer>
-
-      <v-btn @click="goToBooks">Go to Books</v-btn>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -26,6 +24,7 @@
       @refresh="refreshList"
     >
     </UserDialog>
+    <v-btn @click="goToBooks">Go to Books</v-btn>
   </v-card>
 </template>
 

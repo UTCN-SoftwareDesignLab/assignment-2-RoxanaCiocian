@@ -5,11 +5,7 @@
     </v-toolbar>
     <v-form>
       <v-text-field v-model="item.title" label="Title" />
-      <v-text-field v-model="item.author" label="Author" />
-      <v-text-field v-model="item.genre" label="Genre" />
-      <v-text-field v-model="item.price" label="Price" />
-      <v-text-field v-model="item.quantity" label="Quantity" />
-      <v-text-field v-model="quantity" label="Amount to sell" />
+      <v-text-field v-model="quantity" label="Quantity for sell" />
     </v-form>
     <v-card-actions>
       <v-btn @click="persist">
@@ -31,9 +27,21 @@ export default {
   },
   methods: {
     persist() {
-      api.bookstore
-        .sell(this.item.id, this.quantity)
-        .then(() => this.$emit("refresh"));
+      if (this.item.quantity >= this.quantity) {
+        api.bookstore.sell(this.item.id, this.quantity).then(() => {
+          return this.$emit("refresh");
+          //     .edit({
+          //       id: this.item.id,
+          //       title: this.item.title,
+          //       author: this.item.author,
+          //       genre: this.item.genre,
+          //       price: this.item.price,
+          //       quantity: this.item.quantity - this.quantity,
+          //     })
+          //     .then(() => {
+          //       return this.$emit("refresh");
+        });
+      } else this.$emit("refresh");
     },
   },
 };

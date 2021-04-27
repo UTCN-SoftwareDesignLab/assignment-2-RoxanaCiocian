@@ -29,31 +29,31 @@ public class PdfReportService implements ReportService {
         pdfDocument.addPage(page);
 
         try{
-            PDPageContentStream contentStream = new PDPageContentStream(pdfDocument, page);
-            contentStream.beginText();
-            contentStream.setFont(PDType1Font.TIMES_BOLD_ITALIC, 11);
-            contentStream.setLeading(15f);
-            contentStream.newLineAtOffset(45,700);
-            contentStream.showText("Books out of stock: ");
-            contentStream.newLine();
-            contentStream.newLine();
+            PDPageContentStream cs = new PDPageContentStream(pdfDocument, page);
+            cs.beginText();
+            cs.setFont(PDType1Font.TIMES_BOLD_ITALIC, 11);
+            cs.setLeading(15f);
+            cs.newLineAtOffset(45,700);
+            cs.showText("Books out of stock: ");
+            cs.newLine();
+            cs.newLine();
 
             for(BookDTO book: books){
-                contentStream.showText("Id: " + book.getId());
-                contentStream.newLine();
-                contentStream.showText("Title: " + book.getTitle());
-                contentStream.newLine();
-                contentStream.showText("Author: "+ book.getAuthor());
-                contentStream.newLine();
-                contentStream.showText("Genre: "+ book.getGenre());
-                contentStream.newLine();
-                contentStream.showText("Price: "+book.getPrice());
-                contentStream.newLine();
-                contentStream.newLine();
+                cs.showText("Id: " + book.getId());
+                cs.newLine();
+                cs.showText("Title: " + book.getTitle());
+                cs.newLine();
+                cs.showText("Author: " + book.getAuthor());
+                cs.newLine();
+                cs.showText("Genre: " + book.getGenre());
+                cs.newLine();
+                cs.showText("Price: " + book.getPrice());
+                cs.newLine();
+                cs.newLine();
             }
 
-            contentStream.endText();
-            contentStream.close();
+            cs.endText();
+            cs.close();
             pdfDocument.save("OutOfStockBooks_Report.pdf");
 
         } catch (IOException e) {

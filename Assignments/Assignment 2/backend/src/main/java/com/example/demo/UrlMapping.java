@@ -16,6 +16,7 @@ public class UrlMapping {
 
     public static final String BOOKS = BOOKSTORE + "/books";
     public static final String SELL = "/sell";
-    public static final String AMOUNT = "/{quantity}";
+    public static final String QUANTITY = "/{quantity}";
+    public static final String SEARCH = "/{book}";
 
 }

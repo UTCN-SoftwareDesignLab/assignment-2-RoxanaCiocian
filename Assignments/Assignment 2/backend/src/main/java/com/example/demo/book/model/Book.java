@@ -33,6 +33,6 @@ public class Book {
     private Float price;
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
 
 }

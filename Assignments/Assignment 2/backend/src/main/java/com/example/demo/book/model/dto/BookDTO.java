@@ -15,5 +15,5 @@ public class BookDTO {
     private String author;
     private String genre;
     private Float price;
-    private int quantity;
+    private Integer quantity;
 }

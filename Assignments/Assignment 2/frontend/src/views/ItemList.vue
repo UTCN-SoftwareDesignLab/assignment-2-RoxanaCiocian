@@ -3,6 +3,7 @@
     <v-card-title>
       Books - Admin
       <v-spacer></v-spacer>
+
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -25,12 +26,14 @@
       :item="selectedItem"
       @refresh="refreshList"
     ></BookDialog>
+    <v-btn @click="goToUsers">Go to Users</v-btn>
   </v-card>
 </template>
 
 <script>
 import api from "../api";
 import BookDialog from "../components/BookDialog";
+import router from "../router";
 
 export default {
   name: "BookList",
@@ -73,6 +76,9 @@ export default {
     },
     exportCSV() {
       api.items.CSV();
+    },
+    goToUsers() {
+      router.push("/users");
     },
   },
   created() {

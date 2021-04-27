@@ -10,13 +10,9 @@
         hide-details
       >
       </v-text-field>
+      <v-btn @click="searchBar">Search</v-btn>
     </v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="bookstore"
-      :search="search"
-      @click:row="sellItem"
-    >
+    <v-data-table :headers="headers" :items="bookstore" @click:row="sellItem">
     </v-data-table>
     <BookstoreDialog
       :opened="dialogVisible"
@@ -63,6 +59,9 @@ export default {
     sellItem(item) {
       this.selectedItem = item;
       this.dialogVisible = true;
+    },
+    async searchBar() {
+      this.bookstore = await api.bookstore.searchBook(this.search);
     },
   },
   created() {
