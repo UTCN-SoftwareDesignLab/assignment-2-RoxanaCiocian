@@ -40,19 +40,20 @@ class BookRepositoryTest {
     }
 
     @Test
-    public void testFindAll() {
+    public void testFindByFields() {
          Book book = Book.builder()
-                .title("To kill a mockingbird")
-                .author("Harper Lee")
-                .genre("Southern Gothic")
-                .price(35.5F)
+                .title("Morning Glory")
+                .author("Stii tu cine")
+                .genre("Funny fun fun")
                 .quantity(100)
+                .price(35.5F)
                 .build();
+
         repository.save(book);
-        List<Book> all = repository.findAll();
-        List<Book> result = repository.findBookByGenreOrTitleOrAuthor("Harper Lee");
+
+        List<Book> booksFound = repository.findBookByGenreOrTitleOrAuthor("Stii tu cine");
 
 
-        assertEquals(all.size(), result.size());
+        assertEquals(repository.findAll().size(), booksFound.size());
     }
 }

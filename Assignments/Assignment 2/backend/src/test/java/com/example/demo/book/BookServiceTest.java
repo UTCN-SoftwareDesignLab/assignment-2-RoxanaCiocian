@@ -66,7 +66,6 @@ class BookServiceTest {
 //        when(bookService.create(book1)).thenReturn(book1);
 //
 //        bookDto.setId(id);
-//        //when(bookService.findById(id)).thenReturn(java.util.Optional.ofNullable(book1));
 //
 //        BookDTO editedBook = bookService.update(id, bookDto);
 //        Assertions.assertEquals(bookDto, editedBook);
